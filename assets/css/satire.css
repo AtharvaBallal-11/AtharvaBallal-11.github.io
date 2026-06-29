@@ -1,0 +1,186 @@
+/* =============================================================================
+   satire.css — Satire & Humorous Writing Theme
+   Atharva Ballal · Creative Portal
+
+   DESIGN CHARACTER: "Broadsheet editorial, circa 1920"
+   ─────────────────────────────────────────────────────────────────────────────
+   A dry, authoritative newspaper aesthetic. The humour is communicated through
+   content, not through visual chaos. The design stays completely straight-faced —
+   which is itself part of the joke.
+
+   Palette: old newsprint white (#F6F4EE), near-black ink (#111111),
+            no accent colour — only black, grey, and the occasional thin rule.
+   Typography: "Times New Roman" throughout, uppercase for display headings,
+               two-column layout for the body text to simulate a broadsheet.
+
+   WHAT MAKES THIS WORK
+   ─────────────────────────────────────────────────────────────────────────────
+   - Header gets a bold double-rule — the classic broadsheet masthead treatment.
+   - Article body uses CSS columns (column-count: 2) for the newspaper illusion.
+   - Drop caps on the first paragraph signal that we are taking ourselves very
+     seriously indeed.
+   - All headings are uppercase, centered, with tracking — editorial mode.
+   - The footer gets the same double rule as the header for symmetry.
+   ============================================================================= */
+
+body.satire-theme {
+  --creative-bg:        #F6F4EE;   /* old newsprint */
+  --creative-text:      #111111;   /* ink black     */
+  --creative-secondary: #555555;   /* mid-grey      */
+  --creative-accent:    #111111;   /* no colour — pure black */
+  --creative-border:    #CCCCCC;   /* pale grey rule */
+  --creative-light:     #EDECE6;   /* slightly off-white */
+  background-color: var(--creative-bg);
+  color: var(--creative-text);
+  font-family: "Times New Roman", Times, Georgia, serif;
+}
+
+body.satire-theme a { color: var(--creative-text); text-decoration: underline; text-underline-offset: 3px; }
+body.satire-theme a:hover { color: #000; }
+
+/* ─── MASTHEAD HEADER ────────────── */
+
+body.satire-theme header.creative-header {
+  border-top: 3px double var(--creative-text);
+  border-bottom: 3px double var(--creative-text);
+  padding-top: 1.5rem;
+  padding-bottom: 1.25rem;
+  text-align: center;
+  align-items: center;
+}
+
+body.satire-theme .back-professional {
+  text-align: left;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+body.satire-theme .creative-logo {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--creative-text);
+}
+
+.satire-dateline {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--creative-secondary);
+  margin: 0.3rem 0 0.6rem;
+  font-family: "Times New Roman", Times, serif;
+}
+
+body.satire-theme .creative-nav {
+  justify-content: center;
+  border-bottom: none;
+  border-top: 1px solid var(--creative-border);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ─── ARTICLE HEADINGS ───────────── */
+
+body.satire-theme .creative-article h1 {
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 2.75rem;
+  font-weight: 900;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-align: center;
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--creative-text);
+  padding-bottom: 0.75rem;
+}
+
+body.satire-theme .creative-meta {
+  text-align: center;
+  font-style: italic;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.88rem;
+  color: var(--creative-secondary);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+}
+
+body.satire-theme .creative-article h2 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: var(--creative-text);
+  border-bottom: 1px solid var(--creative-border);
+  padding-bottom: 0.4rem;
+  margin: 2.5rem 0 1.5rem;
+}
+
+/* ─── EDITORIAL COLUMNS ──────────── */
+
+/*
+  .editorial-body — the two-column newspaper layout.
+  Applied to the body text of a satire piece.
+  On mobile it collapses to a single column.
+*/
+.editorial-body {
+  column-count: 2;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--creative-border);
+  font-family: "Times New Roman", Times, Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-align: justify;
+}
+
+.editorial-body p {
+  margin-bottom: 0.75rem;
+  text-indent: 1.5em;
+}
+
+.editorial-body p:first-of-type {
+  text-indent: 0;
+}
+
+/* Break out of columns for subheadings */
+.editorial-body h2 {
+  column-span: all;
+}
+
+/* ─── DROP CAP ────────────────────── */
+
+/*
+  Add class="drop-cap" to the first <p> of an article body.
+  The ::first-letter pseudo-element creates the large initial capital.
+*/
+.drop-cap::first-letter {
+  font-size: 4.5rem;
+  font-weight: 900;
+  font-family: "Times New Roman", Times, serif;
+  float: left;
+  line-height: 0.75;
+  margin-top: 0.12rem;
+  margin-right: 0.2rem;
+  color: var(--creative-text);
+}
+
+/* ─── FOOTER ─────────────────────── */
+
+body.satire-theme footer.creative-footer {
+  border-top: 3px double var(--creative-text);
+  padding-top: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .editorial-body { column-count: 1; }
+  body.satire-theme .creative-article h1 { font-size: 2rem; }
+}

@@ -1,0 +1,480 @@
+/* =============================================================================
+   creative.css — Creative Portal Base Stylesheet
+   Atharva Ballal · Creative Sub-site
+
+   PURPOSE: Shared foundation for all three creative sections (poems, satire,
+   experiments). Each section applies its own theme stylesheet on top of this.
+
+   DESIGN INTENT
+   ─────────────────────────────────────────────────────────────────────────────
+   The creative portal is intentionally distinct from the academic site —
+   but the distinction should feel curated, not chaotic. It occupies its own
+   visual territory through typography and colour, while keeping the same
+   structural restraint: clean spacing, clear hierarchy, no gratuitous effects.
+
+   LAYOUT STRUCTURE (shared across all three sections)
+   ─────────────────────────────────────────────────────────────────────────────
+   <body class="creative-body [section-theme]">
+     <header class="creative-header">        ← narrow centred band
+       <a class="back-professional">         ← small return link to academic site
+       <a class="creative-logo">             ← portal brand name
+       <nav class="creative-nav">            ← section tabs (Poems / Satire / Experiments)
+     </header>
+     <main class="creative-main">
+       .creative-breadcrumbs
+       .creative-article
+         h1                                 ← piece title
+         .creative-meta                     ← date, category, tags
+         .creative-content                  ← body text (overridden per theme)
+     </main>
+     <footer class="creative-footer"> </footer>
+   </body>
+
+   ADDING A NEW CREATIVE SECTION
+   ─────────────────────────────────────────────────────────────────────────────
+   1. Create creative/[section].html  (copy creative/poems.html as template)
+   2. Add a theme CSS file:  assets/css/[section].css
+   3. Load it AFTER creative.css in <head>
+   4. Add class="[section]-theme" to <body>
+   5. Add a nav link in the creative-nav of all creative pages
+
+   SECTION THEMES & THEIR DESIGN CHARACTER
+   ─────────────────────────────────────────────────────────────────────────────
+   Poetry / Fiction  (poems.css)      — warm cream, old typewriter serif
+   Satire / Humour   (satire.css)     — off-white newsprint, broadsheet editorial
+   Experiments       (experiments.css)— dark, monospace, terminal log aesthetic
+   ============================================================================= */
+
+
+/* ─── CSS VARIABLES — Creative Foundation ────────────────────────────────────── */
+/* These defaults are overridden by each theme stylesheet */
+
+:root {
+  --creative-max-width: 800px;
+  --creative-bg:        #FAF8F5;
+  --creative-text:      #2C2B29;
+  --creative-secondary: #63605C;
+  --creative-accent:    #9E7E38;
+  --creative-border:    #E2DDD5;
+  --creative-light:     #F4EFE6;
+
+  --sans-font:  system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --serif-font: Georgia, "Times New Roman", serif;
+  --mono-font:  "Fira Code", Consolas, "Courier New", monospace;
+}
+
+
+/* ─── GLOBAL RESET FOR CREATIVE PAGES ───────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body.creative-body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--creative-bg);
+  color: var(--creative-text);
+  font-family: var(--serif-font);
+  line-height: 1.7;
+}
+
+
+/* ─── CREATIVE HEADER ────────────────────────────────────────────────────────── */
+
+header.creative-header {
+  max-width: var(--creative-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 1rem;
+  border-bottom: 1px solid var(--creative-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ← Back to academic site */
+.back-professional {
+  font-family: var(--sans-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--creative-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+  margin-bottom: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.back-professional:hover { color: var(--creative-accent); }
+
+/* Creative portal logo / title */
+.creative-logo {
+  font-family: var(--serif-font);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--creative-text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+/* Section navigation tabs */
+.creative-nav {
+  display: flex;
+  gap: 0;
+  margin-top: 0.6rem;
+  border-bottom: 1px solid var(--creative-border);
+  padding-bottom: 0;
+}
+
+.creative-nav a {
+  font-family: var(--sans-font);
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--creative-secondary);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  margin-right: 1.5rem;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.creative-nav a:hover {
+  color: var(--creative-text);
+}
+
+.creative-nav a.active {
+  color: var(--creative-accent);
+}
+
+.creative-nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--creative-accent);
+}
+
+
+/* ─── CREATIVE BREADCRUMBS ───────────────────────────────────────────────────── */
+
+.creative-breadcrumbs {
+  font-family: var(--sans-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--creative-secondary);
+  margin-bottom: 2rem;
+}
+
+.creative-breadcrumbs a { color: var(--creative-secondary); text-decoration: none; }
+.creative-breadcrumbs a:hover { color: var(--creative-accent); }
+.creative-breadcrumbs span { color: var(--creative-text); }
+
+
+/* ─── MAIN CONTENT AREA ──────────────────────────────────────────────────────── */
+
+main.creative-main {
+  flex: 1;
+  max-width: var(--creative-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+
+/* ─── ARTICLE STRUCTURE ──────────────────────────────────────────────────────── */
+
+.creative-article h1 {
+  font-size: 2.25rem;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.creative-meta {
+  font-family: var(--sans-font);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--creative-secondary);
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--creative-border);
+}
+
+/* The body content area — overridden per theme */
+.creative-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  text-align: justify;
+}
+
+
+/* ─── SEARCH BAR ─────────────────────────────────────────────────────────── */
+
+.creative-search {
+  margin: 1.5rem 0 0.5rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-family: var(--sans-font);
+  font-size: 0.85rem;
+  color: var(--creative-text);
+  background-color: var(--creative-bg);
+  border: 1px solid var(--creative-border);
+  border-radius: 2px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  border-color: var(--creative-accent);
+}
+
+.search-input::placeholder {
+  color: var(--creative-secondary);
+  opacity: 0.7;
+}
+
+
+/* ─── CATEGORY FILTERS ──────────────────────────────────────────────────── */
+
+.category-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.cat-btn {
+  font-family: var(--sans-font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--creative-secondary);
+  background: none;
+  border: 1px solid var(--creative-border);
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 2px;
+}
+
+.cat-btn:hover {
+  color: var(--creative-text);
+  border-color: var(--creative-accent);
+}
+
+.cat-btn.active {
+  color: #fff;
+  background-color: var(--creative-accent);
+  border-color: var(--creative-accent);
+}
+
+
+/* ─── CREATIVE FOOTER ────────────────────────────────────────────────────────── */
+
+footer.creative-footer {
+  max-width: var(--creative-max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: var(--sans-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--creative-secondary);
+  border-top: 1px solid var(--creative-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+footer.creative-footer a {
+  color: var(--creative-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+footer.creative-footer a:hover { color: var(--creative-accent); }
+
+
+/* ─── WORK LISTING (index pages) ─────────────────────────────────────────────── */
+
+/* List of pieces on a section index page */
+.creative-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.creative-list-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px dashed var(--creative-border);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.creative-list-item:last-child { border-bottom: none; }
+
+.list-date {
+  font-family: var(--sans-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--creative-secondary);
+  white-space: nowrap;
+  width: 85px;
+}
+
+.list-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.list-title a {
+  color: var(--creative-text);
+  text-decoration: none;
+}
+
+.list-title a:hover {
+  color: var(--creative-accent);
+}
+
+.list-excerpt {
+  font-size: 0.88rem;
+  color: var(--creative-secondary);
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  header.creative-header {
+    padding: 1.5rem 1rem 0.75rem;
+  }
+
+  main.creative-main {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .creative-nav {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .creative-article h1 { font-size: 1.75rem; }
+
+  footer.creative-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+
+/* ─── CREATIVE PORTAL INDEX GRID ─────────────────────────────────────────────── */
+
+/*
+  Three-up grid of section cards used on creative/index.html.
+  One card per creative section (poems, satire, experiments).
+*/
+.creative-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.creative-card {
+  border: 1px solid var(--creative-border);
+  background-color: #ffffff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--creative-text);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.creative-card:hover {
+  border-color: var(--creative-accent);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.creative-card-tag {
+  font-family: var(--sans-font);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--creative-accent);
+  margin-bottom: 0.6rem;
+}
+
+.creative-card h2 {
+  font-family: var(--serif-font);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  color: var(--creative-text);
+}
+
+.creative-card p {
+  font-size: 0.87rem;
+  line-height: 1.5;
+  color: var(--creative-secondary);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.creative-card-link {
+  font-family: var(--sans-font);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--creative-accent);
+  margin-top: auto;
+}
+
+/* Override the h2::before for cards — no § marker here */
+.creative-card h2::before {
+  content: none;
+  display: none;
+}

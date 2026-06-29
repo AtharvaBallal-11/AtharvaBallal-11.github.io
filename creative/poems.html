@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Poetry &amp; Fiction - Creative Portal</title>
+  <meta name="description" content="Poetry, verses, and fiction selections by Atharva Ballal.">
+  <link rel="canonical" href="https://AtharvaBallal-11.github.io/creative/poems.html">
+  <link rel="stylesheet" href="../assets/css/creative.css">
+  <link rel="stylesheet" href="../assets/css/poems.css">
+</head>
+<body class="creative-body poetry-theme">
+  <header class="creative-header">
+    <a href="../index.html" class="back-professional">← Academic Website</a>
+    <a href="index.html" class="creative-logo">Creative Portal</a>
+    <nav class="creative-nav">
+      <a href="poems.html" class="active">Poetry &amp; Fiction</a>
+      <a href="satire.html">Satire</a>
+      <a href="experiments.html">Experiments</a>
+      <a href="notes.html">Notes</a>
+    </nav>
+  </header>
+  <main class="creative-main">
+    <article class="creative-article">
+      <nav class="creative-breadcrumbs" aria-label="Breadcrumb">
+        <a href="index.html">Creative Home</a> &gt; <span>Poetry &amp; Fiction</span>
+      </nav>
+      <h1>Poetry &amp; Fiction</h1>
+      <div class="creative-meta"><span class="creative-date">Original poems, short stories, and worlds still taking shape.</span></div>
+      <div class="creative-content"><p>Some pieces are complete, while others remain ideas waiting for the right words.</p></div>
+
+      <div class="creative-search">
+        <input type="text" class="search-input" placeholder="Search poems..." oninput="filterPieces()">
+      </div>
+
+      <div class="category-filters">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="poetry">Poetry</button>
+        <button class="cat-btn" data-cat="short-story">Short Stories</button>
+        <button class="cat-btn" data-cat="story-idea">Story Ideas</button>
+      </div>
+
+      <ul class="creative-list" id="piece-list">
+        <li class="creative-list-item creative-list-empty">
+          <div>No poems yet.</div>
+        </li>
+      </ul>
+    </article>
+  </main>
+  <footer class="creative-footer">
+    <p>&copy; Atharva Ballal. Creative Portal.</p>
+    <p><a href="../index.html">Return to Academic Website</a></p>
+  </footer>
+
+  <script>
+    function filterPieces() {
+      var query = document.querySelector('.search-input').value.toLowerCase();
+      var activeCat = document.querySelector('.cat-btn.active');
+      var cat = activeCat ? activeCat.getAttribute('data-cat') : 'all';
+      var items = document.querySelectorAll('#piece-list .creative-list-item');
+      for (var i = 0; i < items.length; i++) {
+        var text = items[i].textContent.toLowerCase();
+        var itemCat = items[i].getAttribute('data-category') || 'all';
+        var matchesSearch = text.indexOf(query) > -1;
+        var matchesCat = cat === 'all' || itemCat === cat;
+        items[i].style.display = (matchesSearch && matchesCat) ? '' : 'none';
+      }
+    }
+
+    document.querySelectorAll('.cat-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.cat-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        filterPieces();
+      });
+    });
+  </script>
+</body>
+</html>

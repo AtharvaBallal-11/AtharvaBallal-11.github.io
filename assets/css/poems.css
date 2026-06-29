@@ -1,0 +1,155 @@
+/* =============================================================================
+   poems.css — Poetry & Fiction Theme
+   Atharva Ballal · Creative Portal
+
+   DESIGN CHARACTER: "Handwritten manuscript, candlelit"
+   ─────────────────────────────────────────────────────────────────────────────
+   A warm, intimate atmosphere suggesting a private journal or a hand-bound
+   anthology. Typography leans into the human — slightly irregular spacing,
+   left-aligned stanzas with generous breathing room.
+
+   Palette: aged cream (#FDF9F3), sepia ink (#3A2E22), warm umber accent (#8B5E3C)
+   Typography: Georgia for headings, but a slightly warmer treatment;
+               "Courier New" for poetry body to suggest physical type.
+
+   WHAT MAKES THIS WORK
+   ─────────────────────────────────────────────────────────────────────────────
+   - The stanza class preserves whitespace (pre-wrap) for lineated verse.
+   - Prose fiction uses first-line indent, no inter-paragraph gaps (book style).
+   - Section headings use a thin ink-line rather than a § marker.
+   - No borders heavier than a hairline; all rules feel like pen strokes.
+   ============================================================================= */
+
+body.poetry-theme {
+  --creative-bg:        #FDF9F3;   /* aged cream */
+  --creative-text:      #3A2E22;   /* sepia ink   */
+  --creative-secondary: #7A6A58;   /* warm umber muted */
+  --creative-accent:    #8B5E3C;   /* warm umber  */
+  --creative-border:    #DDD4C4;   /* pale parchment rule */
+  --creative-light:     #F5EFE4;   /* slightly deeper cream */
+  background-color: var(--creative-bg);
+  color: var(--creative-text);
+}
+
+/* Override link colours */
+body.poetry-theme a { color: var(--creative-accent); }
+body.poetry-theme a:hover { color: #5c3a1a; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Typography overrides for headings */
+body.poetry-theme .creative-article h1,
+body.poetry-theme .creative-article h2,
+body.poetry-theme .creative-article h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--creative-text);
+}
+
+body.poetry-theme .creative-article h2 {
+  font-size: 1.15rem;
+  border-bottom: none;
+  border-top: 1px solid var(--creative-border);
+  padding-top: 1.5rem;
+  margin-top: 3rem;
+  color: var(--creative-secondary);
+}
+
+/* ─── POETRY CONTENT ────────────── */
+
+.poetry-theme .creative-content {
+  max-width: 540px;
+  margin: 0;    /* left-aligned, not centred */
+}
+
+/*
+  .stanza — one block of verse lines.
+  Use pre-wrap to honour manual line breaks.
+  Separate stanzas with a blank line in the HTML, or separate <p class="stanza"> blocks.
+*/
+.stanza {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.02rem;
+  line-height: 2.0;
+  white-space: pre-wrap;
+  margin-bottom: 2.25rem;
+  color: var(--creative-text);
+}
+
+/* Individual line within a stanza (optional, if you write stanzas line by line) */
+.verse-line {
+  display: block;
+  min-height: 1.4rem;
+}
+
+/* Stanza break — visual gap between stanzas; or just use margin on .stanza */
+.stanza-break {
+  height: 1.5rem;
+}
+
+/* Optional: indent a continuation line (enjambment) */
+.verse-indent { padding-left: 2rem; }
+
+/* Poem title within a longer collection */
+.poem-title {
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 3rem;
+  margin-bottom: 0.75rem;
+  color: var(--creative-text);
+  border-bottom: none;
+}
+
+/* ─── PROSE FICTION CONTENT ──────── */
+
+/*
+  Prose fiction uses book conventions:
+  - First paragraph of a section: no indent
+  - Subsequent paragraphs: 1.5em text-indent, no bottom gap
+*/
+.prose-content {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+.prose-content p {
+  margin-bottom: 0;
+  text-indent: 1.75em;
+  max-width: none;
+}
+
+.prose-content p.no-indent,
+.prose-content p:first-of-type {
+  text-indent: 0;
+}
+
+/* Scene break marker */
+.prose-break {
+  text-align: center;
+  color: var(--creative-secondary);
+  font-size: 1.1rem;
+  letter-spacing: 0.4em;
+  margin: 2.5rem 0;
+  user-select: none;
+}
+
+/* Epigraph / pull quote */
+.epigraph {
+  font-style: italic;
+  font-size: 0.97rem;
+  color: var(--creative-secondary);
+  border-left: 2px solid var(--creative-border);
+  padding-left: 1.25rem;
+  margin: 2rem 0 2.5rem;
+  max-width: 42ch;
+}
+
+.epigraph cite {
+  display: block;
+  margin-top: 0.4rem;
+  font-style: normal;
+  font-size: 0.82rem;
+  color: var(--creative-accent);
+}

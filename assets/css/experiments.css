@@ -1,0 +1,210 @@
+/* =============================================================================
+   experiments.css — Technical Experiments Theme
+   Atharva Ballal · Creative Portal
+
+   DESIGN CHARACTER: "Research notebook, amber desk lamp"
+   ─────────────────────────────────────────────────────────────────────────────
+   REVISION NOTE: The previous version of this theme used a full dark-mode
+   terminal aesthetic (black background, neon amber). While visually striking,
+   it was too heavy and too far from the overall site identity. This version
+   dials it back: a warm off-white lab notebook feel, with monospace typography
+   and restrained amber/slate accents. It suggests "someone who does technical
+   work" without screaming "hacker aesthetic."
+
+   Palette: off-white lab paper (#F8F7F2), slate (#2A2D35), amber highlight (#B87333)
+   Typography: monospace throughout — Fira Code if available, Consolas fallback.
+               The monospace choice IS the visual signal; no further drama needed.
+
+   WHEN TO USE DARK MODE (and when not to)
+   ─────────────────────────────────────────────────────────────────────────────
+   If you want to restore a dark terminal look, uncomment the `.terminal-block`
+   section below. Apply it only to code/output blocks — never to the full page.
+   Full-page dark mode breaks the visual continuity with the rest of the site
+   and is hard to read in ambient office light.
+
+   COMPONENTS
+   ─────────────────────────────────────────────────────────────────────────────
+   .terminal-block     — dark inset box for actual command/output display
+   .terminal-cmd       — the command typed (amber)
+   .terminal-output    — the output text (slate)
+   .status-line        — inline STATUS: OK / ERROR / PENDING badges
+   .experiment-meta    — structured run parameters table
+   ============================================================================= */
+
+body.experiments-theme {
+  --creative-bg:        #F8F7F2;   /* off-white lab paper */
+  --creative-text:      #2A2D35;   /* slate ink           */
+  --creative-secondary: #5E6370;   /* muted slate         */
+  --creative-accent:    #B87333;   /* copper / amber      */
+  --creative-border:    #DDDBD3;   /* ruled paper line    */
+  --creative-light:     #F0EEE6;   /* marginalia block    */
+  background-color: var(--creative-bg);
+  color: var(--creative-text);
+  font-family: "Fira Code", Consolas, Monaco, "Courier New", monospace;
+}
+
+body.experiments-theme a { color: var(--creative-accent); text-decoration: underline; text-underline-offset: 3px; }
+body.experiments-theme a:hover { color: #8b5220; }
+
+/* ─── HEADER ─────────────────────── */
+
+body.experiments-theme header.creative-header {
+  border-bottom: 1px solid var(--creative-border);
+}
+
+body.experiments-theme .creative-logo {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--creative-text);
+}
+
+body.experiments-theme .creative-logo::before {
+  content: "~/";
+  color: var(--creative-accent);
+  font-weight: 400;
+}
+
+/* ─── HEADINGS ────────────────────── */
+
+body.experiments-theme .creative-article h1 {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--creative-text);
+}
+
+body.experiments-theme .creative-article h1::before {
+  content: "# ";
+  color: var(--creative-accent);
+  font-weight: 400;
+}
+
+body.experiments-theme .creative-article h2 {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--creative-text);
+  border-bottom: 1px dashed var(--creative-border);
+  padding-bottom: 0.25rem;
+  margin-top: 2.75rem;
+}
+
+body.experiments-theme .creative-article h2::before {
+  content: "## ";
+  color: var(--creative-accent);
+  font-weight: 400;
+}
+
+body.experiments-theme .creative-article h3::before {
+  content: "### ";
+  color: var(--creative-secondary);
+  font-weight: 400;
+}
+
+/* ─── BODY CONTENT ────────────────── */
+
+.experiments-theme .creative-content {
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.experiments-theme .creative-content p {
+  margin-bottom: 1rem;
+}
+
+/* ─── TERMINAL BLOCK ─────────────── */
+
+/*
+  .terminal-block — use for showing actual shell sessions or code output.
+  This is the ONLY element where a dark background is used.
+  The contrast against the warm page background draws the eye to the code.
+*/
+.terminal-block {
+  background-color: #1E2026;        /* dark slate, not pure black */
+  border: 1px solid #3A3D45;
+  border-radius: 2px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  position: relative;
+}
+
+/* Simulated window chrome — three dots */
+.terminal-block::before {
+  content: "● ● ●";
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  color: #444;
+  margin-bottom: 0.85rem;
+}
+
+.terminal-cmd {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 0.87rem;
+  color: #E8A84D;    /* amber — the input */
+  display: block;
+  margin-bottom: 0.25rem;
+  white-space: pre-wrap;
+}
+
+.terminal-cmd::before {
+  content: "$ ";
+  color: #6272a4;   /* muted slate prompt */
+}
+
+.terminal-output {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 0.87rem;
+  color: #B0B8C8;   /* off-white output */
+  white-space: pre-wrap;
+  line-height: 1.6;
+  display: block;
+}
+
+/* Semantic output colouring */
+.terminal-output.success { color: #6DB86D; }
+.terminal-output.error   { color: #D47070; }
+.terminal-output.info    { color: #7BA3CC; }
+
+
+/* ─── EXPERIMENT META TABLE ─────── */
+
+/*
+  .experiment-meta — a structured parameter block, like a lab notebook entry.
+  Use a <dl> inside this.
+*/
+.experiment-meta {
+  background-color: var(--creative-light);
+  border: 1px solid var(--creative-border);
+  border-left: 3px solid var(--creative-accent);
+  padding: 1rem 1.25rem;
+  margin: 1.75rem 0;
+  font-size: 0.85rem;
+}
+
+.experiment-meta dt {
+  font-weight: 600;
+  color: var(--creative-secondary);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 0.65rem;
+}
+
+.experiment-meta dt:first-child { margin-top: 0; }
+
+.experiment-meta dd {
+  margin-left: 0;
+  color: var(--creative-text);
+  margin-bottom: 0;
+}
+
+/* ─── INLINE STATUS BADGES ─────── */
+
+.status-ok      { color: #4A8C4A; font-weight: 600; }
+.status-error   { color: #9B4444; font-weight: 600; }
+.status-pending { color: var(--creative-accent); font-weight: 600; }

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://AtharvaBallal-11.github.io/sitemap.xml

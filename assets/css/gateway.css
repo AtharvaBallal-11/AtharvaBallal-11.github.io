@@ -1,0 +1,155 @@
+/* =============================================================================
+   gateway.css — Creative Portal Entry Gate
+   Atharva Ballal · Academic Website
+
+   PURPOSE: Full-screen interstitial that sets the visitor's expectations
+   before entering the creative sub-site. Minimal, centred, one decision.
+
+   The palette deliberately matches the academic site so the transition
+   feels considered rather than jarring. The visual weight shifts slightly
+   warmer to hint at what lies ahead.
+
+   DO NOT add animations or heavy visual effects here — the gate should feel
+   like a quiet threshold, not a landing page.
+   ============================================================================= */
+
+:root {
+  --bg-color:       #FAF8F5;
+  --text-color:     #2C2B29;
+  --text-secondary: #63605C;
+  --accent-color:   #9E7E38;
+  --accent-hover:   #7D632B;
+  --border-color:   #E2DDD5;
+  --light-bg:       #F4EFE6;
+  --serif-font: Georgia, "Times New Roman", serif;
+  --sans-font:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.gateway-body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--serif-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* The return link — floats above the centred container */
+.gateway-return {
+  font-family: var(--sans-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.15s ease;
+}
+
+.gateway-return:hover { color: var(--accent-color); }
+
+/* Centred decision container */
+.gateway-container {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Decorative brass rule above the heading */
+.gateway-rule {
+  width: 3rem;
+  height: 1px;
+  background-color: var(--accent-color);
+  margin: 0 auto 1.75rem;
+}
+
+.gateway-container h1 {
+  font-family: var(--serif-font);
+  font-size: 2.25rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+.gateway-subtitle {
+  font-family: var(--sans-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-color);
+  margin-bottom: 2rem;
+}
+
+.gateway-message {
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  text-align: justify;
+}
+
+/* Action buttons */
+.gateway-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--sans-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  text-decoration: none;
+  border-radius: 1px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+@media (max-width: 480px) {
+  .gateway-container h1 { font-size: 1.75rem; }
+  .gateway-message { font-size: 0.93rem; }
+}
